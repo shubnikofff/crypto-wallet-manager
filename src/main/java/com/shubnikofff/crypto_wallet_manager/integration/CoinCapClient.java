@@ -17,6 +17,7 @@ public interface CoinCapClient {
 
     @GetExchange("/assets")
     CoinCapResponseBody<AssetCoinCapResponse> getAssetsByIds(
-        @RequestParam("ids") String search
+        @RequestParam("ids") String search,
+        @RequestParam("limit") int limit
     );
 }
