@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: crypto-wallet-manager
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/crypto_wallet_manager
+    username: crypto_wallet_manager_app
+    password: secret
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.hibernate.show_sql: true
+
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
+    org.springframework.jdbc.core.StatementCreatorUtils: TRACE
+
+integration:
+  coin-cap:
+    api-key: ${COIN_CAP_API_KEY} # Set $COIN_CAP_API_KEY env variable with your CoinCap api token or define directly here
+    base-url: https://rest.coincap.io/v3
+
+job:
+  update_price_frequency: 3S

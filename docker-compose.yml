@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: crypto_wallet_manager
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: crypto_wallet_manager_app
+    ports:
+      - '5432:5432'
