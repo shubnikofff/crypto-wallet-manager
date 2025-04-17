@@ -7,19 +7,9 @@ spring:
     username: crypto_wallet_manager_app
     password: secret
 
-  jpa:
-    show-sql: true
-    properties:
-      hibernate.hibernate.show_sql: true
-
   sql:
     init:
       mode: always
-
-logging:
-  level:
-    org.springframework.jdbc.core.JdbcTemplate: DEBUG
-    org.springframework.jdbc.core.StatementCreatorUtils: TRACE
 
 integration:
   coin-cap:
@@ -27,4 +17,4 @@ integration:
     base-url: https://rest.coincap.io/v3
 
 job:
-  update_price_frequency: 3S
+  update_price_frequency: 10S

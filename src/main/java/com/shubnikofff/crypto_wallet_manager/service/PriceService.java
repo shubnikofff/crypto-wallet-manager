@@ -6,9 +6,10 @@ import com.shubnikofff.crypto_wallet_manager.repository.PriceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,13 +23,11 @@ public class PriceService {
 	private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
 	private final PriceRepository priceRepository;
-	private final AssetService assetService;
 	private final CoinCapService coinCapService;
 
-	@Transactional
-	public void updatePrices() {
-		final var futures = assetService.getCoinCapIds()
-			.stream()
+
+	public void updatePrices(Collection<String> coinCapIds) {
+		final var futures = coinCapIds.stream()
 			.map(id -> CompletableFuture.supplyAsync(() -> coinCapService.fetchAsset(id), executorService)
 				.thenApply(response -> new Price(response.symbol(), response.priceUsd()))
 				.exceptionally(throwable -> {
@@ -42,6 +41,7 @@ public class PriceService {
 			.thenApply(v ->
 				futures.stream()
 					.map(CompletableFuture::join)
+					.filter(Objects::nonNull)
 					.toList()
 			)
 			.exceptionally(throwable -> {
@@ -51,5 +51,9 @@ public class PriceService {
 			.join();
 
 		priceRepository.saveAll(newPrices);
+	}
+
+	public void save(Price price) {
+		priceRepository.saveAll(List.of(price));
 	}
 }

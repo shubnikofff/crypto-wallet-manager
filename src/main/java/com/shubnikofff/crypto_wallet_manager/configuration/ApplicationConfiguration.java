@@ -2,6 +2,8 @@ package com.shubnikofff.crypto_wallet_manager.configuration;
 
 
 import com.shubnikofff.crypto_wallet_manager.integration.CoinCapClient;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,4 +33,12 @@ public class ApplicationConfiguration {
             .createClient(CoinCapClient.class);
     }
 
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+            .info(new Info()
+                .title("Wallet Manager API")
+                .version("1.0")
+            );
+    }
 }

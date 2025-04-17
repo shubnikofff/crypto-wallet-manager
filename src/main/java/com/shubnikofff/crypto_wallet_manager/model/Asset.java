@@ -1,8 +1,12 @@
 package com.shubnikofff.crypto_wallet_manager.model;
 
+import lombok.With;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
+
+@With
 public record Asset(
     UUID id,
     UUID walletId,
@@ -11,7 +15,5 @@ public record Asset(
     BigDecimal quantity,
     BigDecimal price
 ) {
-    public BigDecimal value() {
-        return quantity.multiply(price);
-    }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class PriceRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
+    @Transactional
     public void saveAll(List<Price> prices) {
         final var sql = """
             INSERT INTO price (asset_symbol, usd_value)
