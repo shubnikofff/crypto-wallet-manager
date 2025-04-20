@@ -18,7 +18,7 @@ public class PriceRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Transactional
-    public void saveAll(List<Price> prices) {
+    public int[] saveAll(List<Price> prices) {
         final var sql = """
             INSERT INTO price (asset_symbol, usd_value)
             VALUES (:assetSymbol, :usdValue)
@@ -30,7 +30,7 @@ public class PriceRepository {
             .map(BeanPropertySqlParameterSource::new)
             .toArray(SqlParameterSource[]::new);
 
-        jdbcTemplate.batchUpdate(sql, params);
+        return jdbcTemplate.batchUpdate(sql, params);
     }
 
 }

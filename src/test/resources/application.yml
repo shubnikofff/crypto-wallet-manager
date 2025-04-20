@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: test
+
+  sql:
+    init:
+      mode: always
+
+integration:
+  coin-cap:
+    api-key: token
+    base-url: https://rest.coincap.io/v3
