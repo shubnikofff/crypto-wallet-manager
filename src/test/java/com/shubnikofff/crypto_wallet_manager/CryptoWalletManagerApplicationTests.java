@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CryptoWalletManagerApplicationTests {
 
     @Test
-    void contextLoads() {
+    void should_load_context_success() {
     }
 
 }

@@ -32,7 +32,8 @@ public class AssetService {
 
 	@Transactional
 	public void addAsset(UUID walletId, AddAssetRequest request) throws UniqueConstraintException {
-		final var assetCoinCapResponse = coinCapService.searchBySymbol(Objects.requireNonNull(request).symbol()).stream()
+		final var assetCoinCapResponse = coinCapService.searchBySymbol(Objects.requireNonNull(request).symbol())
+			.stream()
 			.filter(assetResponse -> assetResponse.symbol().equals(request.symbol()) && assetResponse.priceUsd().compareTo(request.price()) == 0)
 			.findFirst()
 			.orElseThrow(() -> new UniqueConstraintException("Price is not match. Skip transaction"));
