@@ -84,11 +84,32 @@ date in the past
     - **worst_asset**: Which crypto lost the most money.
     - **worst_performance**: How much that crypto went down in price (as a percentage).
 
+### Key Points
 
+- **Project structure**:
 
+    Create your entities and your logic with the current information in mind:
+    - A **user** has only one **wallet**
+    - A **wallet** can have from 0 - * assets (tokens)
 
+- **Assets recurrent update**:
+  - **Frequency**: How often you check the prices is up to you but need to be configurable.
+  - **Concurrency**: Check the prices of **3 crypto assets at the same time**.
 
-## How to run
+- **Wallet evaluation**:
+  - **Result**: The program will show the total value of the wallet and which crypto did the best and worst.
+
+- **General**:
+  - **Database**: Save the wallet information and prices in a database.
+  - **Request and Response**: Requests and responses must be in JSON format.
+
+### Technical Briefing
+- Java 17+ with Spring 3.
+- Build the project with Maven or Gradle.
+- Write your code in English.
+- Feel free to use any additional Java libraries you want.
+
+## How to run solution
 
 ### Dependencies
 
@@ -98,7 +119,7 @@ docker-compose up -d
 ```
 
 ### Environment
-CoinCap API key needs to be set as `COIN_CAP_API_KEY` environment variable or directly in the `application.yml`
+**CoinCap API key** needs to be set as `COIN_CAP_API_KEY` environment variable or directly in the `application.yml`
 
 ### Application
 From the project root directory run:
@@ -111,4 +132,3 @@ mvn spring-boot:run
 
 ### Usage
 Application API available in [Swagger](http://localhost:8080/swagger-ui/index.html)
-
