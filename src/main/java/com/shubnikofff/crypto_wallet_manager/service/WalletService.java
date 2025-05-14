@@ -31,12 +31,12 @@ public class WalletService {
 
     @Transactional
     public WalletViewDto registerWallet(RegisterWalletRequest request) throws UniqueConstraintException {
-        if (walletRepository.exists(request.email())) {
+        if (walletRepository.existsByOwnerEmail(request.email())) {
             log.warn("Wallet with email {} already registered", request.email());
             throw new UniqueConstraintException("Wallet with email %s already registered".formatted(request.email()));
         }
 
-        final var wallet = new Wallet(UUID.randomUUID(), request.email());
+        final var wallet = new Wallet(null, request.email());
         walletRepository.save(wallet);
 
         return new WalletViewDto(
@@ -47,7 +47,7 @@ public class WalletService {
     }
 
     public WalletViewDto addAsset(UUID walletId, AddAssetRequest request) throws NotFoundException {
-        if (!walletRepository.exists(Objects.requireNonNull(walletId))) {
+        if (!walletRepository.existsById(Objects.requireNonNull(walletId))) {
             throw new NotFoundException("Wallet with id %s not found".formatted(walletId));
         }
 
@@ -56,7 +56,7 @@ public class WalletService {
     }
 
     public WalletViewDto getWalletDetailedView(UUID walletId) throws NotFoundException {
-        if (!walletRepository.exists(Objects.requireNonNull(walletId))) {
+        if (!walletRepository.existsById(Objects.requireNonNull(walletId))) {
             throw new NotFoundException("Wallet with id %s not found".formatted(walletId));
         }
 

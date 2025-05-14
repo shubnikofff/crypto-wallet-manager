@@ -17,4 +17,13 @@ integration:
     base-url: https://rest.coincap.io/v3
 
 job:
-  update_price_frequency: 10S
+  update_price_frequency: 10M
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core: DEBUG
+          core.JdbcTemplate: DEBUG
+          core.StatementCreatorUtils: TRACE

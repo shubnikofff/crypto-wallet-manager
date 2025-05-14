@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS wallet CASCADE;
 CREATE TABLE wallet
 (
-    id          UUID PRIMARY KEY,
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     owner_email VARCHAR NOT NULL UNIQUE
 );
 
